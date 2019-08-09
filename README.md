@@ -8,13 +8,14 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 T-test Power
 ```{r}
-n_power = 20
-mean_base = .2
-sd_base = .1
-mean_follow = .4
-sd_follow = .2
+
 FISCH_power = function(){
-  base = rnorm(n = n_power, mean = mean_power, sd = sd_power)
+  n_power = 40
+  mean_base = .2
+  mean_follow = -.2
+  sd_base = .1
+  sd_follow = .1
+  base = rnorm(n = n_power, mean = mean_base, sd = sd_base)
   follow = rnorm(n = n_power, mean = mean_follow, sd = sd_follow)
   t_results = t.test(follow, base, paired = TRUE)
   p_results= ifelse(t_results$p.value < .05,1,0)
