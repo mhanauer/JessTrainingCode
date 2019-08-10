@@ -8,6 +8,14 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 T-test Power
 ```{r}
+### If you wanted to calculate a Cohen's D from results
+M1  = 66.6                      # Mean for sample 1
+M2  = 64.6                      # Mean for sample 2
+S1  =  4.8                      # Std dev for sample 1
+S2  =  3.6                      # Std dev for sample 2
+
+Cohen.d = (M1 - M2)/sqrt(((S1^2) + (S2^2))/2)
+
 
 FISCH_power = function(){
   n_power = 40
