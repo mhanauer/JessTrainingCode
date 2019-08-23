@@ -55,12 +55,12 @@ FISCH_power_n = function(){
 ```
 Done correctly
 ```{r}
-mean_base = .2
-mean_follow = -.1
-sd_base = .4
-sd_follow = .4
+  mean_base = .2
+  mean_follow = -.1
+  sd_base = .4
+  sd_follow = .4
+  n = c(11:40)
 FISCH_power_n = function(){
-  n = c(11,20,30,40)
   base = list()
   follow = list()
   t_results = list()
@@ -72,6 +72,9 @@ FISCH_power_n = function(){
   }
   return(t_results)
 }
+
+
+
 ```
 Now run the results like 500 times (should do like 10,000) Get the data into a fomrat that has 500 columns and rows represent the results for the different n's
 ```{r}
@@ -80,7 +83,8 @@ power_rep = replicate(reps, FISCH_power_n())
 power_unlist= unlist(power_rep)
 power_matrix = matrix(power_unlist, ncol = reps, nrow = length(n), byrow = FALSE)
 power = apply(power_matrix, 1, sum)/reps
-power
+#paste0()
+plot(power)
 ```
 Next steps plot this by n
 
@@ -92,10 +96,6 @@ y = b0 + b1*(x)+e
 b0 = .5
 b1 = ?
 e = ?
-x = ?  
+x = c(1,0)  
 y = b0+b1*x+e
 ```
-
-
-
-
