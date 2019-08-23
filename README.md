@@ -16,9 +16,8 @@ S2  =  3.6                      # Std dev for sample 2
 
 Cohen.d = (M1 - M2)/sqrt(((S1^2) + (S2^2))/2)
 
-
 FISCH_power = function(){
-  n_power = 40
+  n_power = 20
   mean_base = .2
   mean_follow = -.2
   sd_base = .1
@@ -54,6 +53,26 @@ FISCH_power_n = function(){
   return(t_results)
 }
 ```
+Done correctly
+```{r}
+mean_base = .2
+mean_follow = -.1
+sd_base = .4
+sd_follow = .4
+FISCH_power_n = function(){
+  n = c(11,20,30,40)
+  base = list()
+  follow = list()
+  t_results = list()
+  for(i in 1:length(n)){
+  base[[i]] = rnorm(n[[i]], mean = mean_base, sd = sd_base)
+  follow[[i]] = rnorm(n[[i]], mean = mean_follow, sd = sd_follow)
+  t_results[[i]] = t.test(follow[[i]], base[[i]], paired = TRUE)
+  t_results[[i]]= ifelse(t_results[[i]]$p.value< .05,1,0)
+  }
+  return(t_results)
+}
+```
 Now run the results like 500 times (should do like 10,000) Get the data into a fomrat that has 500 columns and rows represent the results for the different n's
 ```{r}
 reps = 500
@@ -62,6 +81,19 @@ power_unlist= unlist(power_rep)
 power_matrix = matrix(power_unlist, ncol = reps, nrow = length(n), byrow = FALSE)
 power = apply(power_matrix, 1, sum)/reps
 power
+```
+Next steps plot this by n
+
+Find ten articles from Eli Lilly with clinical trials (i.e. random assignment)
+
+Put together model for linear regression with x equaling treatment and control group, b1 is the effect of the of the treatment, b0 is the intercept (value of y when x is zero), and e is the random, which is should be normally distributed
+y = b0 + b1*(x)+e
+```{r}
+b0 = .5
+b1 = ?
+e = ?
+x = ?  
+y = b0+b1*x+e
 ```
 
 
